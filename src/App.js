@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import styled from 'styled-components';
 import Person from './Person/Person';
+//import Radium, {StyleRoot} from 'radium';
 
 class App extends Component{
   state = {
@@ -65,7 +67,11 @@ class App extends Component{
       border : '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      margin: '20px'
+      margin: '20px',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
 
     let persons = null;
@@ -85,34 +91,47 @@ class App extends Component{
       );
 
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+          color: 'black'
+      };
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red"); //classes=["red"]
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold"); //classes=["red", "bold"]
     }
 
     return (
-      <div className="App">
-        <h1>hello</h1>
-        <p> this is working</p> 
-        <button 
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {persons}
+      // <StyleRoot>
+        <div className="App">
+          <h1>hello</h1>
+          <p className={classes.join(" ")}> this is working</p> 
+          <button 
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
 
-        {/* Another way to hide/show persons: using ternary operation */}
-          {/* this.state.showPersons ? 
-            <div>
-              <Person 
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age} />
-              <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                click={this.switchNameHandler.bind(this, "Dave")} //Or use a function: {() => this.switchNameHandler("daisyyy")}
-                changed={this.nameChangedHandler}> Hobbies: Racing </Person>
-              <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age} />
-            </div> : null */}
-
-      </div>
+          {/* Another way to hide/show persons: using ternary operation */}
+            {/* this.state.showPersons ? 
+              <div>
+                <Person 
+                  name={this.state.persons[0].name}
+                  age={this.state.persons[0].age} />
+                <Person
+                  name={this.state.persons[1].name}
+                  age={this.state.persons[1].age}
+                  click={this.switchNameHandler.bind(this, "Dave")} //Or use a function: {() => this.switchNameHandler("daisyyy")}
+                  changed={this.nameChangedHandler}> Hobbies: Racing </Person>
+                <Person
+                  name={this.state.persons[2].name}
+                  age={this.state.persons[2].age} />
+              </div> : null */}
+        </div>
+      // </StyleRoot>
 
       // This doesn't work because can only render one root component so it has to be inside 'div'
       // <p> this is working</p> 
@@ -124,3 +143,4 @@ class App extends Component{
 }
 
 export default App;
+// export default Radium(App);
