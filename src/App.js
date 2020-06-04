@@ -4,6 +4,20 @@ import styled from 'styled-components';
 import Person from './Person/Person';
 //import Radium, {StyleRoot} from 'radium';
 
+const StyledButton = styled.button`
+  background-color: ${props => props.alter ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  margin: 20px;
+  &:hover {
+    background-color: ${props => props.alter ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`;
+
 class App extends Component{
   state = {
     persons: [
@@ -90,11 +104,11 @@ class App extends Component{
         </div>
       );
 
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-          color: 'black'
-      };
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //     color: 'black'
+      // };
     }
 
     const classes = [];
@@ -110,9 +124,9 @@ class App extends Component{
         <div className="App">
           <h1>hello</h1>
           <p className={classes.join(" ")}> this is working</p> 
-          <button 
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          <StyledButton // style={style} 
+            alter={this.state.showPersons}
+            onClick={this.togglePersonsHandler}> Toggle Persons</StyledButton>
           {persons}
 
           {/* Another way to hide/show persons: using ternary operation */}
